@@ -28,9 +28,16 @@ public class DatabaseTest {
             edgesWithValues.add(new ArrayList<>(Arrays.asList(3, 5)));
             Graph graphWithValues = new UndirectedGraph(verticesWithValues, edgesWithValues);
             graphManager.createGraph("graphWithValues");
-
-            // Mise à jour du deuxième graph avec des valeurs
             graphManager.updateGraph("graphWithValues", graphWithValues);
+            
+            ArrayList<Integer> verticesWithValuesUp = new ArrayList<>(Arrays.asList(6, 7, 8));
+            ArrayList<ArrayList<Integer>> edgesWithValuesUp = new ArrayList<>();
+            edgesWithValuesUp.add(new ArrayList<>(Arrays.asList(5, 6)));
+            edgesWithValuesUp.add(new ArrayList<>(Arrays.asList(5, 7)));
+            edgesWithValuesUp.add(new ArrayList<>(Arrays.asList(6, 8)));
+            Graph graphWithValues2 = new UndirectedGraph(verticesWithValuesUp, edgesWithValuesUp);
+            graphManager.updateGraph("graphWithValues", graphWithValues2);
+            
 
             // Création d'un troisième graph avec des valeurs différentes
             ArrayList<Integer> otherVertices = new ArrayList<>(Arrays.asList(10, 20, 30));
@@ -47,7 +54,6 @@ public class DatabaseTest {
             //graphManager.deleteGraph("otherGraph");
 
         } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
 }
