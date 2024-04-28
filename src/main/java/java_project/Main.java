@@ -100,7 +100,7 @@ public class Main {
        for (ArrayList<Integer> row : adjacencyMatrixTree) {
             for (int value : row) {
                 System.out.print(value + " ");
-            }
+            } 
             System.out.println();
         }
     }  

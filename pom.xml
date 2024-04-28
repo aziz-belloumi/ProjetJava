@@ -10,10 +10,13 @@
         <exec.mainClass>com.eniso.java_project.Java_project</exec.mainClass>
         <maven.compiler.release>17</maven.compiler.release>
     </properties>
+    <dependencies>
     <dependency>
         <groupId>org.postgresql</groupId>
         <artifactId>postgresql</artifactId>
         <version>42.7.2</version>
     </dependency>
+    </dependencies>
+    
 
 </project>
