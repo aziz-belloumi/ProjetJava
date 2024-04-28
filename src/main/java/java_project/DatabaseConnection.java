@@ -9,9 +9,9 @@ public class DatabaseConnection {
     private static DatabaseConnection instance;
 
     // JDBC connection parameters
-    private static final String URL = "jdbc:postgresql://localhost:5432/your_database_name";
-    private static final String USERNAME = "your_username";
-    private static final String PASSWORD = "your_password";
+    private static final String URL = "jdbc:postgresql://localhost:5432/TEST";
+    private static final String USERNAME = "postgres";
+    private static final String PASSWORD = "aziznoura";
 
     private Connection connection;
 
