@@ -38,6 +38,7 @@ public class DatabaseTest {
             otherEdges.add(new ArrayList<>(Arrays.asList(10, 20)));
             otherEdges.add(new ArrayList<>(Arrays.asList(20, 30)));
             Graph otherGraph = new UndirectedGraph(otherVertices, otherEdges);
+            graphManager.createGraph("otherGraph");
 
             // Mise à jour du troisième graph avec des valeurs
             graphManager.updateGraph("otherGraph", otherGraph);
