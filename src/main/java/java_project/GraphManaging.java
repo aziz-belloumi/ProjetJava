@@ -25,6 +25,7 @@ public class GraphManaging implements IGraphManaging {
     }
 
     @Override
+    @SuppressWarnings("NonPublicExported")
     public void updateGraph(String name, Graph graph) {
         // Update vertices and edges
         try {
