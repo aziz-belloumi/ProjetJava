@@ -20,23 +20,21 @@ public class DatabaseTest {
             graphManager.createGraph("emptyGraph");
 
             // Création d'un deuxième graph avec des valeurs
-            ArrayList<Integer> verticesWithValues = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5));
+            ArrayList<Integer> verticesWithValues = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5 , 6, 7, 8));
             ArrayList<ArrayList<Integer>> edgesWithValues = new ArrayList<>();
             edgesWithValues.add(new ArrayList<>(Arrays.asList(1, 2)));
             edgesWithValues.add(new ArrayList<>(Arrays.asList(2, 3)));
             edgesWithValues.add(new ArrayList<>(Arrays.asList(2, 4)));
             edgesWithValues.add(new ArrayList<>(Arrays.asList(3, 5)));
+            edgesWithValues.add(new ArrayList<>(Arrays.asList(5, 6)));
+            edgesWithValues.add(new ArrayList<>(Arrays.asList(5, 7)));
+            edgesWithValues.add(new ArrayList<>(Arrays.asList(6, 8)));
             Graph graphWithValues = new UndirectedGraph(verticesWithValues, edgesWithValues);
             graphManager.createGraph("graphWithValues");
             graphManager.updateGraph("graphWithValues", graphWithValues);
-            
-            ArrayList<Integer> verticesWithValuesUp = new ArrayList<>(Arrays.asList(6, 7, 8));
-            ArrayList<ArrayList<Integer>> edgesWithValuesUp = new ArrayList<>();
-            edgesWithValuesUp.add(new ArrayList<>(Arrays.asList(5, 6)));
-            edgesWithValuesUp.add(new ArrayList<>(Arrays.asList(5, 7)));
-            edgesWithValuesUp.add(new ArrayList<>(Arrays.asList(6, 8)));
-            Graph graphWithValues2 = new UndirectedGraph(verticesWithValuesUp, edgesWithValuesUp);
-            graphManager.updateGraph("graphWithValues", graphWithValues2);
+
+
+
             
 
             // Création d'un troisième graph avec des valeurs différentes
