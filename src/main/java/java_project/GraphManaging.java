@@ -15,31 +15,25 @@ public class GraphManaging implements IGraphManaging {
 
     @Override
     public void createGraph(String name) {
-        String sql = "CREATE TABLE IF NOT EXISTS " + name + " (vertex INT PRIMARY KEY, edge INT)";
+        String sql = "CREATE TABLE IF NOT EXISTS " + name + " (vertex INT PRIMARY KEY, connected_vertex INT)";
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
             pstmt.executeUpdate();
             System.out.println("Table '" + name + "' created successfully");
-        }  
-        catch (SQLException e) {
+        } catch (SQLException e) {
             System.err.println("Error creating table: " + e.getMessage());
         }
     }
 
-
     @Override
-    @SuppressWarnings("NonPublicExported")
     public void updateGraph(String name, Graph graph) {
-        // Update vertices and edges
         try {
-            // First, clear existing data in the table
             clearGraphData(name);
 
-            // Add vertices to the table
             List<Integer> vertices = graph.vertices;
             for (int vertex : vertices) {
                 addVertex(name, vertex);
             }
-            // Add edges to the table
+
             ArrayList<ArrayList> edges = graph.edges;
             for (List<Integer> edge : edges) {
                 addEdge(name, edge.get(0), edge.get(1));
@@ -50,26 +44,23 @@ public class GraphManaging implements IGraphManaging {
         }
     }
 
-    // Helper method to add a vertex to the graph table
     private void addVertex(String tableName, int vertex) throws SQLException {
-        String sql = "INSERT INTO " + tableName + "(vertex) VALUES (?)";
+        String sql = "INSERT INTO " + tableName + "(vertex, connected_vertex) VALUES (?, NULL)";
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
             pstmt.setInt(1, vertex);
             pstmt.executeUpdate();
         }
     }
 
-    // Helper method to add an edge to the graph table
     private void addEdge(String tableName, int u, int v) throws SQLException {
-        String sql = "INSERT INTO " + tableName + "(vertex1, vertex2) VALUES (?, ?)";
+        String sql = "UPDATE " + tableName + " SET connected_vertex = ? WHERE vertex = ?";
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
-            pstmt.setInt(1, u);
-            pstmt.setInt(2, v);
+            pstmt.setInt(1, v);
+            pstmt.setInt(2, u);
             pstmt.executeUpdate();
         }
     }
 
-    // Helper method to clear existing data in the graph table
     private void clearGraphData(String tableName) throws SQLException {
         String sql = "DELETE FROM " + tableName;
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
@@ -88,4 +79,3 @@ public class GraphManaging implements IGraphManaging {
         }
     }
 }
-
