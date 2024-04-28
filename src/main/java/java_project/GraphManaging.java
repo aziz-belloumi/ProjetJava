@@ -15,14 +15,16 @@ public class GraphManaging implements IGraphManaging {
 
     @Override
     public void createGraph(String name) {
-        String sql = "CREATE TABLE IF NOT EXISTS " + name + " (vertex INT PRIMARY KEY)";
+        String sql = "CREATE TABLE IF NOT EXISTS " + name + " (vertex INT PRIMARY KEY, edge INT)";
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
             pstmt.executeUpdate();
             System.out.println("Table '" + name + "' created successfully");
-        } catch (SQLException e) {
+        }  
+        catch (SQLException e) {
             System.err.println("Error creating table: " + e.getMessage());
         }
     }
+
 
     @Override
     @SuppressWarnings("NonPublicExported")
