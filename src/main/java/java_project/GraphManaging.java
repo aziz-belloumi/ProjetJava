@@ -3,6 +3,7 @@ package java_project;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 
@@ -15,7 +16,7 @@ public class GraphManaging implements IGraphManaging {
 
     @Override
     public void createGraph(String name) {
-        String sql = "CREATE TABLE IF NOT EXISTS " + name + " (vertex INT PRIMARY KEY, connected_vertex INT)";
+        String sql = "CREATE TABLE IF NOT EXISTS " + name + " (vertex INT PRIMARY KEY, connected_vertices VARCHAR(255))";
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
             pstmt.executeUpdate();
             System.out.println("Table '" + name + "' created successfully");
@@ -25,7 +26,6 @@ public class GraphManaging implements IGraphManaging {
     }
 
     @Override
-    @SuppressWarnings("NonPublicExported")
     public void updateGraph(String name, Graph graph) {
         try {
             clearGraphData(name);
@@ -46,7 +46,8 @@ public class GraphManaging implements IGraphManaging {
     }
 
     private void addVertex(String tableName, int vertex) throws SQLException {
-        String sql = "INSERT INTO " + tableName + "(vertex, connected_vertex) VALUES (?, NULL)";
+        // Initialize the connected vertices string as empty initially
+        String sql = "INSERT INTO " + tableName + "(vertex, connected_vertices) VALUES (?, '')";
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
             pstmt.setInt(1, vertex);
             pstmt.executeUpdate();
@@ -54,12 +55,32 @@ public class GraphManaging implements IGraphManaging {
     }
 
     private void addEdge(String tableName, int u, int v) throws SQLException {
-        String sql = "UPDATE " + tableName + " SET connected_vertex = ? WHERE vertex = ?";
+        // Get the existing connected vertices for vertex u
+        String existingConnectedVertices = getConnectedVertices(tableName, u);
+
+        // Append the new vertex v to the existing connected vertices string
+        String updatedConnectedVertices = existingConnectedVertices.isEmpty() ? String.valueOf(v) : existingConnectedVertices + "," + v;
+
+        // Update the connected vertices string in the database
+        String sql = "UPDATE " + tableName + " SET connected_vertices = ? WHERE vertex = ?";
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
-            pstmt.setInt(1, v);
+            pstmt.setString(1, updatedConnectedVertices);
             pstmt.setInt(2, u);
             pstmt.executeUpdate();
         }
+    }
+
+    private String getConnectedVertices(String tableName, int vertex) throws SQLException {
+        String sql = "SELECT connected_vertices FROM " + tableName + " WHERE vertex = ?";
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setInt(1, vertex);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getString("connected_vertices");
+                }
+            }
+        }
+        return "";
     }
 
     private void clearGraphData(String tableName) throws SQLException {
@@ -80,3 +101,4 @@ public class GraphManaging implements IGraphManaging {
         }
     }
 }
+

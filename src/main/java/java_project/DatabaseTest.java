@@ -43,7 +43,7 @@ public class DatabaseTest {
             graphManager.updateGraph("otherGraph", otherGraph);
 
             // Suppression du troisième graph
-            graphManager.deleteGraph("otherGraph");
+            //graphManager.deleteGraph("otherGraph");
 
         } catch (SQLException e) {
             e.printStackTrace();
