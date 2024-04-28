@@ -44,7 +44,8 @@ public class DatabaseConnection {
             if (connection != null && !connection.isClosed()) {
                 connection.close();
             }
-        } catch (SQLException e) {
+        } 
+        catch (SQLException e) {
             e.printStackTrace();
         }
     }
