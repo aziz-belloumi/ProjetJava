@@ -80,9 +80,9 @@ public class WeightedGraph extends Graph {
 
     for (int i = 0; i < vertices.size(); i++) {
         if (dist[i] != Integer.MAX_VALUE) {
-            System.out.println("Shortest distance from vertex " + startVertex + " to vertex " + i + ": " + dist[i]);
+            System.out.println("Distance la plus courte du sommet " + startVertex + " au sommet " + i + ": " + dist[i]);
         } else {
-            System.out.println("Shortest distance from vertex " + startVertex + " to vertex " + i + ": Infinity");
+            System.out.println("Distance la plus courte du sommet " + startVertex + " au sommet " + i + ": Infini");
         }
     }
 }
