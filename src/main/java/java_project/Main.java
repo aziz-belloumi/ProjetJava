@@ -20,6 +20,11 @@ public class Main {
         UndirectedGraph graph1 = new UndirectedGraph(vertices, edges);
         System.out.println(graph1.vertices);
         System.out.println(graph1.edges);
+        graph1.breadthFirstSearch(0);
+        System.out.println();
+        graph1.depthFirstSearch(0);
+        System.out.println();
+        graph1.dijkstraAlgorithm(0);
         // Convert to matrix and print the adjacency matrix
         ArrayList<ArrayList<Integer>> adjacencyMatrix1 = graph1.convertToMatrix();
         for (ArrayList<Integer> row : adjacencyMatrix1) {
@@ -33,7 +38,11 @@ public class Main {
         DirectedGraph graph2 = new DirectedGraph(vertices, edges);
         System.out.println(graph2.vertices);
         System.out.println(graph2.edges);
-        
+        graph2.breadthFirstSearch(0);
+        System.out.println();
+        graph2.depthFirstSearch(0);
+        System.out.println();
+        graph2.dijkstraAlgorithm(0);
         // Convert to matrix and print the adjacency matrix
         ArrayList<ArrayList<Integer>> adjacencyMatrix2 = graph2.convertToMatrix();
         for (ArrayList<Integer> row : adjacencyMatrix2) {
@@ -54,6 +63,11 @@ public class Main {
 
         System.out.println(graph.vertices);
         System.out.println(graph.edges);
+        graph.breadthFirstSearch(0);
+        System.out.println();
+        graph.depthFirstSearch(0);
+        System.out.println();
+        graph.dijkstraAlgorithm(0);
 
         // Convert to matrix and print the adjacency matrix
         ArrayList<ArrayList<Integer>> adjacencyMatrix = graph.convertToMatrix();
@@ -94,6 +108,9 @@ public class Main {
 
        System.out.println(tree.vertices);
        System.out.println(tree.edges);
+       graph.breadthFirstSearch(0);
+       System.out.println();
+       graph.depthFirstSearch(0);
 
     // Convert to matrix and print the adjacency matrix
        ArrayList<ArrayList<Integer>> adjacencyMatrixTree = tree.convertToMatrix();
