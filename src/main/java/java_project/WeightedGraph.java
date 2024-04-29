@@ -54,34 +54,39 @@ public class WeightedGraph extends Graph {
     }
 
     public void dijkstraAlgorithm(int startVertex) {
-        PriorityQueue<int[]> pq = new PriorityQueue<>(Comparator.comparingInt(a -> a[1]));
-        pq.offer(new int[]{startVertex, 0});
+    PriorityQueue<int[]> pq = new PriorityQueue<>(Comparator.comparingInt(a -> a[1]));
+    pq.offer(new int[]{startVertex, 0});
 
-        int[] dist = new int[vertices.size()];
-        Arrays.fill(dist, Integer.MAX_VALUE);
-        dist[startVertex] = 0;
+    int[] dist = new int[vertices.size()];
+    Arrays.fill(dist, Integer.MAX_VALUE);
+    dist[startVertex] = 0;
 
-        while (!pq.isEmpty()) {
-            int[] pair = pq.poll();
-            int vertex = pair[0];
-            int weight = pair[1];
+    while (!pq.isEmpty()) {
+        int[] pair = pq.poll();
+        int vertex = pair[0];
+        int weight = pair[1];
 
-            if (weight > dist[vertex]) continue;
+        if (weight > dist[vertex]) continue;
 
-            ArrayList<Integer> neighbors = edges.get(vertex);
-            for (int neighbor : neighbors) {
-                int newDist = weight + getWeight(vertex, neighbor);
-                if (newDist < dist[neighbor]) {
-                    dist[neighbor] = newDist;
-                    pq.offer(new int[]{neighbor, newDist});
-                }
+        ArrayList<Integer> neighbors = edges.get(vertex);
+        for (int neighbor : neighbors) {
+            int newDist = weight + getWeight(vertex, neighbor);
+            if (newDist < dist[neighbor]) {
+                dist[neighbor] = newDist;
+                pq.offer(new int[]{neighbor, newDist});
             }
         }
+    }
 
-        for (int i = 0; i < vertices.size(); i++) {
+    for (int i = 0; i < vertices.size(); i++) {
+        if (dist[i] != Integer.MAX_VALUE) {
             System.out.println("Shortest distance from vertex " + startVertex + " to vertex " + i + ": " + dist[i]);
+        } else {
+            System.out.println("Shortest distance from vertex " + startVertex + " to vertex " + i + ": Infinity");
         }
     }
+}
+
     public ArrayList<ArrayList<Integer>> convertToMatrix() {
         ArrayList<ArrayList<Integer>> adjacencyMatrix = new ArrayList<>();
         int size = vertices.size();
